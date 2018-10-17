@@ -1,0 +1,64 @@
+// type queries and inserts here, copy and paste to mongo client
+// filtering: for x documents, return x or fewer documents based on filtering criteria
+
+db.students.find(
+{
+    age:
+    {
+        $gte: 21
+    }
+}
+);
+
+db.students.find(
+{
+    $and : [
+        {
+            name : "Alice"
+        },
+        {
+            age : { $lt : 21 }
+        }
+    ]
+
+}
+);
+
+db.students.insert(
+    {
+        name : "The Homie",
+        dorm : {
+                    name : "Nowhere",
+                    roomNumber : 1000
+                },
+        classes : [
+                    {
+                        name : "FUN 100",
+                        days : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                        credits : 10
+                    }
+        ]
+    }
+);
+
+db.students.find(
+    {
+        "classes.credits" : { $gt : 3 }
+    }
+);
+
+db.students.update(
+    { age : {$gt : 1} },
+    { $inc : {age : 1} },
+    {multi : true}
+);
+
+db.students.update(
+    { age : {$eq : 1} },
+    { $unset : {age : ""} },
+    {multi : true}
+);
+
+db.students.update(
+    { name : {$eq : "Alice"} },
+    { 
